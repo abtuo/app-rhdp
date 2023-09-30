@@ -1,0 +1,17 @@
+<!-- myapp/templates/search_result.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Résultat de la recherche</title>
+</head>
+<body>
+    <h1>Résultat de la recherche</h1>
+    {% if person %}
+    <p>La personne {{ person }} a été trouvée dans la base de données.</p>
+    {% else %}
+    <p>La personne n'a pas été trouvée dans la base de données.</p>
+    {% endif %}
+    <a href="{% url 'search_person' %}">Retour à la recherche</a>
+</body>
+</html>
