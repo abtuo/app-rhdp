@@ -1,0 +1,17 @@
+<!-- myapp/templates/all_persons.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste de personnes</title>
+</head>
+<body>
+    <h1>Liste de personnes</h1>
+    <ul>
+        {% for person in persons %}
+        <li>{{ person.first_name }} {{ person.last_name }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'search_person' %}">Retour à la recherche</a>
+</body>
+</html>

@@ -1,17 +1,24 @@
-<!-- myapp/templates/search_result.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Résultat de la recherche</title>
-</head>
-<body>
+{% block title %}Recherche de personne{% endblock %}
+
+{% block content %}
+    <div class="content">
+
     <h1>Résultat de la recherche</h1>
     {% if person %}
-    <p>La personne {{ person }} a été trouvée dans la base de données.</p>
+    <p>{{ person }} est inscrit dans la base de données.</p>
     {% else %}
-    <p>La personne n'a pas été trouvée dans la base de données.</p>
+    <p>{{ person }} n'est pas dans la base de données.</p>
     {% endif %}
-    <a href="{% url 'search_person' %}">Retour à la recherche</a>
-</body>
-</html>
+
+    {% if person_on_cei %}
+            <h3>Résultats liste électorale :</h3>
+            <p>{{ person_on_cei }} est inscrit sur la liste électorale.</p>
+            
+    {% endif %}
+
+    <input type="submit" value="INSCRIRE UNE PERSONNE",c><br><br>
+    <input type="submit" value="Retour à la recherche">
+</div>
+{% endblock %}

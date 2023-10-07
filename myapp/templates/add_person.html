@@ -1,0 +1,23 @@
+<!-- myapp/templates/add_person.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Ajouter une personne{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <h2>Ajouter une personne</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_table }}
+            <input type="submit" value="Enregistrer">
+        </form>
+        {% if success %}
+            <p class="success-message">La personne a été ajoutée avec succès.</p>
+        {% endif %}
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <a href="{% url 'search_person' %}" class="nav-link">Retour à la recherche de personne</a>
+    </div>
+{% endblock %}

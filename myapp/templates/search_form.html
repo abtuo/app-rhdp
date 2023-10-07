@@ -1,35 +1,25 @@
-<!-- myapp/templates/search_form.html -->
+{% extends 'base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Recherche de personne</title>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        form {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #d16e1d;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-    </style>
-</head>
-<body>
-    <h1>Recherche</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="first_name">Prénom:</label>
-        <input type="text" id="first_name" name="first_name" required><br><br>
-        <label for="last_name">Nom:</label>
-        <input type="text" id="last_name" name="last_name" required><br><br>
-        <input type="submit" value="Rechercher">
-    </form>
-</body>
-</html>
+{% block title %}Recherche de personne{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <h2>Recherche</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="first_name">Prénom</label>
+            <input type="text" id="first_name" name="first_name" required><br>
+            <label for="last_name">Nom</label>
+            <input type="text" id="last_name" name="last_name" required><br><br>
+            <label for="birth_day">Date de naissance</label>
+            <input type="text" id="last_name" name="last_name" required><br><br>
+            <label for="birth_place">Lieu de naissance</label>
+            <input type="text" id="last_name" name="last_name" required><br><br>
+            <input type="submit" value="Rechercher">
+        </form>
+        
+        <a href="{% url 'add_person' %}">Ajouter une personne</a><br>
+        
+        <a href="{% url 'view_all_persons' %}">Afficher toutes les personnes</a>
+    </div>
+{% endblock %}
