@@ -22,52 +22,52 @@ driver = webdriver.Chrome(options=op)
 driver.get('https://cei.ci/lep-23/')
 
 
-def search_person_cei(name='DRAMANE', 
+def search_person_cei(request,
+                  name='DRAMANE', 
                   surname='OUATTARA', 
                   day='04', 
                   month='06', 
                   year='1964'
                   ):
     
-    formulaire = driver.find_element(By.ID,  'formulaire')
+    if request.method == 'POST':
+    
+        formulaire = driver.find_element(By.ID,  'formulaire')
 
-    last_name_input = formulaire.find_element(By.NAME, 'nomfamille')
-    first_name_input = formulaire.find_element(By.NAME, 'prenom')
-    birth_day = formulaire.find_element(By.NAME, 'jour')
+        last_name_input = formulaire.find_element(By.NAME, 'nomfamille')
+        first_name_input = formulaire.find_element(By.NAME, 'prenom')
+        birth_day = formulaire.find_element(By.NAME, 'jour')
 
-    birth_month = formulaire.find_element(By.NAME, 'mois')
-    birth_year = formulaire.find_element(By.NAME, 'annee')
+        birth_month = formulaire.find_element(By.NAME, 'mois')
+        birth_year = formulaire.find_element(By.NAME, 'annee')
 
-    #time.sleep(2)
-    day_dropdown = Select(birth_day)
-    day_dropdown.select_by_value(day)
+        day_dropdown = Select(birth_day)
+        day_dropdown.select_by_value(day)
 
-    month_dropdown = Select(birth_month)
-    month_dropdown.select_by_value(month)
+        month_dropdown = Select(birth_month)
+        month_dropdown.select_by_value(month)
 
-    year_dropdown = Select(birth_year)
-    year_dropdown.select_by_value(year)
-    # Remplissez les champs du formulaire
-    first_name_input.send_keys(name)
-    last_name_input.send_keys(surname)
-    #time.sleep(2)
+        year_dropdown = Select(birth_year)
+        year_dropdown.select_by_value(year)
+        # Remplissez les champs du formulaire
+        first_name_input.send_keys(name)
+        last_name_input.send_keys(surname)
+ 
+        # Soumettez le formulaire
+        search_button = formulaire.find_element(By.NAME,'search_cei_individu')
+        search_button.click()
 
-    # Soumettez le formulaire
-    search_button = formulaire.find_element(By.NAME,'search_cei_individu')
-    search_button.click()
-    time.sleep(3)
+        result = driver.find_element(By.ID, 'resultat_electeur')
 
-    result = driver.find_element(By.ID, 'resultat_electeur')
-    #print <b>result</b>
 
-    #print(result.text)
+        result_dict = {line.split(' : ')[0]:line.split(' : ')[-1] for line in result.text.splitlines()}
 
-    result_dict = {line.split(' : ')[0]:line.split(' : ')[-1] for line in result.text.splitlines()}
-    print(result_dict)
+        # Fermer le navigateur
+        driver.quit()
+        return render(request, 'search_form_cei.html', {'result_dict': result_dict})
 
-    # Fermer le navigateur
-    driver.quit()
-    return result_dict
+    return render(request, 'search_form_cei.html', {})
+   
 
 def search_person(request):
     if request.method == 'POST':
@@ -102,46 +102,19 @@ def add_person(request):
                 success = True
                 error_message = None
             except IntegrityError:
+                # Si la personne existe déjà dans la base de données
+                success = False
                 error_message = "La personne existe déjà dans la base de données."
         else:
+            success = False
             error_message = "Le formulaire n'est pas valide."
     else:
         form = PersonForm()
         success = False
         error_message = None
-
     return render(request, 'add_person.html', {'form': form, 'success': success, 'error_message': error_message})
 
 
 def view_all_persons(request):
     persons = Person.objects.all()
     return render(request, 'all_persons.html', {'persons': persons})
-
-
-def search_person_v2(request):
-    if request.method == 'POST':
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        person = None
-
-        if first_name and last_name:
-            # Recherche dans la base de données SQLite
-            try:
-                person = Person.objects.get(first_name=first_name, last_name=last_name)
-            except Person.DoesNotExist:
-                person = None
-
-            if person is None:
-                # Si la personne n'a pas été trouvée dans la base de données, recherchez dans le fichier CSV
-                csv_file_path = 'myapp/static/myapp/persons.csv'  # Chemin vers le fichier CSV
-                with open(csv_file_path, 'r', newline='') as csvfile:
-                    csv_reader = csv.DictReader(csvfile)
-                    for row in csv_reader:
-                        if row['first_name'] == first_name and row['last_name'] == last_name:
-                            person = {
-                                'first_name': row['first_name'],
-                                'last_name': row['last_name']
-                            }
-                            break
-        return render(request, 'search_result.html', {'person': person})
-    return render(request, 'search_form.html')

@@ -12,13 +12,13 @@
             <label for="last_name">Nom</label>
             <input type="text" id="last_name" name="last_name" required><br><br>
             <label for="birth_day">Date de naissance</label>
-            <input type="text" id="last_name" name="last_name" required><br><br>
+            <input type="date" id="birth_day" name="birth_day"><br><br>
             <label for="birth_place">Lieu de naissance</label>
-            <input type="text" id="last_name" name="last_name" required><br><br>
+            <input type="text" id="birth_place" name="birth_place"><br><br>
             <input type="submit" value="Rechercher">
         </form>
-        
-        <a href="{% url 'add_person' %}">Ajouter une personne</a><br>
+
+        <p> <a href="{% url 'add_person' %}">Ajouter une personne</a></p>
         
         <a href="{% url 'view_all_persons' %}">Afficher toutes les personnes</a>
     </div>

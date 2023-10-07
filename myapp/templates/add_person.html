@@ -9,7 +9,14 @@
         <h2>Ajouter une personne</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_table }}
+            <label for="first_name">Prénom</label>
+            <input type="text" id="first_name" name="first_name" required><br>
+            <label for="last_name">Nom</label>
+            <input type="text" id="last_name" name="last_name" required><br><br>
+            <label for="birth_day">Date de naissance</label>
+            <input type="date" id="birth_day" name="birth_day"><br><br>
+            <label for="birth_place">Lieu de naissance</label>
+            <input type="text" id="birth_place" name="birth_place"><br><br>
             <input type="submit" value="Enregistrer">
         </form>
         {% if success %}
@@ -18,6 +25,6 @@
         {% if error_message %}
             <p class="error-message">{{ error_message }}</p>
         {% endif %}
-        <a href="{% url 'search_person' %}" class="nav-link">Retour à la recherche de personne</a>
+        <a href="{% url 'search_person' %}" class="nav-link">Retour à la recherche</a>
     </div>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Recherche de personne{% endblock %}
+
+{% block content %}
+
+<h1>Vérification liste électorale</h1>
+    {% if result_dict %}
+    <p>{{ result_dict }} est inscrit sur la liste électorale.</p>
+    {% else %}
+    <p>La personne n'est pas sur la liste électorale.</p>
+    {% endif %}
+
+<a href="{% url 'add_person' %}">
+    <button type="button">INSCRIRE UNE PERSONNE</button>
+</a>
+
+<br>
+<br>
+<a href="{% url 'search_person' %}", class="button_link">
+    <button class="button_link">RETOUR A LA RECHERCHE</button>
+</a>
+
+{% endblock %}
