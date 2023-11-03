@@ -6,28 +6,31 @@
     <div class="content">
 
         <h1>Résultat de la recherche</h1>
-        {% if person %}
-        <p>{{ person }} est inscrit dans la base de données.</p>
+        
+        {% if person_in_db %}
+        <p style="color: green;">{{ person }} est inscrit dans la base de données.</p>
         {% else %}
-        <p>La personne n'est pas dans la base de données.</p>
+        <p style="color: red;">{{ person }} n'est pas dans notre base de données.</p> 
+        {% endif %}<br>
+
+        {% if person_on_cei %}
+        <p style="color: green;">{{ person }} est inscrit(e) sur la liste électorale. <br>
+        Numéro de la carte d'électeur : {{ no_electeur }} <br>
+        Lieu de vote : {{ centre_vote }}
+        </p>
+        {% else %}
+        <p style="color: red;">{{ person }} n'est pas inscrit(e) sur la liste électorale.</p>
         {% endif %}
-
-
-        <br>
-        <a href="{% url 'search_person_cei' %}">
-            <button type="button">VERIFICATION CEI</button>
-        </a>
-        <br>
         <br>
      
         <a href="{% url 'add_person' %}">
-            <button type="button">INSCRIRE UNE PERSONNE</button>
+            <button class="button_link">INSCRIRE UNE PERSONNE</button>
         </a>
         <br>
         <br>
 
-        <a href="{% url 'search_person' %}", class="button_link">
-            <button class="button_link">RECHERCHER UNE PERSONNE</button>
+        <a href="{% url 'search_person' %}", class="button">
+            <button class="button_link">Retour à la recherche</button>
         </a>
     </div>
 {% endblock %}

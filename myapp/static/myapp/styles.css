@@ -4,6 +4,7 @@
 html, body, h1, h2, h3, p, ul, li {
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
 
@@ -37,11 +38,11 @@ body {
 }
 
 
-
 /* Style pour les en-têtes */
 h1, h2, h3 {
     color: #333; /* Texte en noir */
     margin-bottom: 10px;
+    text-align: center;
 }
 
 /* Style pour les formulaires */
@@ -61,7 +62,7 @@ form label {
     margin-right: 0px; /* Espacement entre les labels et les champs */
 }
 
-form input[type="text"] {
+form div input[type="text"] {
     width: 90%;
     padding: 10px;
     margin-bottom: 15px;
@@ -69,7 +70,15 @@ form input[type="text"] {
     border-radius: 5px;
 }
 
-form input[type="date"] {
+form div input[type="date"] {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+form div input[type="tel"] {
     width: 90%;
     padding: 10px;
     margin-bottom: 15px;
@@ -128,4 +137,16 @@ form input[type="submit"] {
     font-size: 16px;
     cursor: pointer;
     margin: 5px;
+}
+
+.column {
+    display: inline-block;
+    width: 45%; /* Ajustez la largeur selon vos besoins */
+    margin: 1.5%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; /* Espacement entre les éléments */
 }

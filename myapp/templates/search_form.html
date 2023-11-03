@@ -9,17 +9,21 @@
             {% csrf_token %}
             <label for="first_name">Prénom</label>
             <input type="text" id="first_name" name="first_name" required><br>
+
             <label for="last_name">Nom</label>
             <input type="text" id="last_name" name="last_name" required><br><br>
-            <label for="birth_day">Date de naissance</label>
-            <input type="date" id="birth_day" name="birth_day"><br><br>
-            <label for="birth_place">Lieu de naissance</label>
-            <input type="text" id="birth_place" name="birth_place"><br><br>
+            
+            <label for="birth_date">Date de naissance</label>
+            <input type="date" id="birth_date" name="birth_date"><br><br>
+            
             <input type="submit" value="Rechercher">
         </form>
 
-        <p> <a href="{% url 'add_person' %}">Ajouter une personne</a></p>
-        
-        <a href="{% url 'view_all_persons' %}">Afficher toutes les personnes</a>
+        <a href="{% url 'add_person' %}">
+            <button class="button_link">Ajouter une personne</button>
+        </a>
+        <a href="{% url 'view_all_persons' %}">
+            <button class="button_link">Afficher la base de données</button>
+        </a>
     </div>
 {% endblock %}

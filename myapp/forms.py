@@ -6,4 +6,11 @@ from .models import Person
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        fields = ['first_name', 'last_name', 'birth_date', 'birth_place']
+        fields = ['first_name', 
+                  'last_name', 
+                  'birth_date', 
+                  'sexe', 
+                  'contact', 
+                  'section', 
+                  'city', 
+                  'country']

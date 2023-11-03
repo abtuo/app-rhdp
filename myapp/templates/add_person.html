@@ -5,26 +5,62 @@
 {% block title %}Ajouter une personne{% endblock %}
 
 {% block content %}
-    <div class="content">
-        <h2>Ajouter une personne</h2>
-        <form method="post">
-            {% csrf_token %}
-            <label for="first_name">Prénom</label>
-            <input type="text" id="first_name" name="first_name" required><br>
-            <label for="last_name">Nom</label>
-            <input type="text" id="last_name" name="last_name" required><br><br>
-            <label for="birth_day">Date de naissance</label>
-            <input type="date" id="birth_day" name="birth_day"><br><br>
-            <label for="birth_place">Lieu de naissance</label>
-            <input type="text" id="birth_place" name="birth_place"><br><br>
-            <input type="submit" value="Enregistrer">
-        </form>
-        {% if success %}
-            <p class="success-message">La personne a été ajoutée avec succès.</p>
-        {% endif %}
-        {% if error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
-        <a href="{% url 'search_person' %}" class="nav-link">Retour à la recherche</a>
-    </div>
+    <h2>Ajouter une personne</h2>
+    <form method="post", class="grid">
+
+        {% csrf_token %}
+        <div class="column">
+            <label for="name">Nom</label>
+            <input type="text" id="name" name="last_name" required><br><br>
+
+            <label for="prenom">Prénom</label>
+            <input type="text" id="prenom" name="first_name" required><br><br>
+
+            <label for="sexe">Sexe</label>
+            <select id="sexe" name="sexe">
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+            </select><br><br>
+
+            <label for="date_naissance">Date de Naissance</label>
+            <input type="date" id="date_naissance" name="birth_date" required><br><br>
+
+            <label for="contact">Contact</label>
+            <input type="tel" id="contact" name="contact" required><br><br>
+        </div>
+        <!-- Deuxième colonne -->
+        <div class="column">
+            <label for="section_de_base">Section</label>
+            <input type="text" id="adresse" name="section" required><br><br>
+
+            <label for="ville">Ville</label>
+            <input type="text" id="ville" name="city" required><br><br>
+            <label for="ville">Pays</label>
+            <input type="text" id="pays" name="country" required><br><br>
+
+            <input type="submit" value="Ajouter">
+        </div>
+        
+    </form>
+    {% if success %}
+        <p class="success-message">La personne a été ajoutée avec succès.</p>
+    {% endif %}
+    {% if error_message %}
+        <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+
+    <a href="{% url 'search_person' %}", class="button">
+        <button class="button_link">Retour à la recherche</button>
+    </a>
 {% endblock %}
+
+
+first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    birth_date = models.DateField()
+    birth_place = models.CharField(max_length=100)
+    sexe = models.CharField(max_length=100)
+    contact = models.CharField(max_length=100)
+    section = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)

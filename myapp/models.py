@@ -11,23 +11,26 @@ class Person(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     birth_date = models.DateField()
-    birth_place = models.CharField(max_length=100)
     
+    sexe = models.CharField(max_length=100)
+    contact = models.CharField(max_length=100)
+    section = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)    
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['first_name', 'last_name'], name='unique_name')
+            models.UniqueConstraint(fields=['first_name', 'last_name', 'birth_date'], name='unique_name')
         ]
     def __str__(self):
-        return f"{self.first_name} {self.last_name} né le {self.birth_date} à {self.birth_place}"
-
+        return f"{self.first_name} {self.last_name} né le {self.birth_date}"
 
 
 class PersonCEI(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     birth_date = models.DateField()
-    birth_place = models.CharField(max_length=100)
+    
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} né le {self.birth_date} à {self.birth_place}"
+        return f"{self.first_name} {self.last_name} né le {self.birth_date}"

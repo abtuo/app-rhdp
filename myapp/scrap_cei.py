@@ -38,7 +38,6 @@ def search_person_cei(name='DRAMANE',
 
     year_dropdown = Select(birth_year)
     year_dropdown.select_by_value(year)
-    # Remplissez les champs du formulaire
     first_name_input.send_keys(name)
     time.sleep(2)
     last_name_input.send_keys(surname)
@@ -51,9 +50,6 @@ def search_person_cei(name='DRAMANE',
     time.sleep(3)
 
     result = driver.find_element(By.ID, 'resultat_electeur')
-    #print <b>result</b>
-
-    #print(result.text)
 
     result_dict = {line.split(' : ')[0]:line.split(' : ')[-1] for line in result.text.splitlines()}
     print(result_dict)
@@ -64,5 +60,39 @@ def search_person_cei(name='DRAMANE',
     driver.quit()
     return result_dict
 
+import requests
+from bs4 import BeautifulSoup
+def person_on_cei() :
+    
+    NOM="DAO"
+    PRENOM="BAZOUMANA"
+    JOUR_DE_NAISSANCE="01"
+    MOIS_DE_NAISSANCE = "04"
+    ANNEE_DE_NAISSANCE="1995"
+
+    the_data = f"nomfamille={NOM}&prenom={PRENOM}&jour={JOUR_DE_NAISSANCE}&mois={MOIS_DE_NAISSANCE}&annee={ANNEE_DE_NAISSANCE}&search_cei_individu=Lancer+la+recherche"
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+
+    r = requests.post("https://cei.ci/liste-electorale-definitive-2023/", data=the_data, headers=headers)
+
+    soup = BeautifulSoup(r.text, "html.parser")
+
+    #nom = soup.body.div.div.div.section[3].div.div.div.div.div
+    RESULTATS_ELECTEURS = (soup.select("div.elementor-shortcode")[1]).select('h6')
+
+    RESULTATS = {}
+    for res in RESULTATS_ELECTEURS:
+        #print(res.text)
+        KEY = (((res.text).split(":"))[0]).strip()
+        try : 
+            VALUE = (((res.text).split(":"))[1]).strip()
+        except: 
+            VALUE = ""
+        RESULTATS[KEY] = VALUE
+
+    print(RESULTATS)
+    #print(RESULTATS['Département'])
+    #print(RESULTATS_ELECTEURS)
+
 if __name__ == '__main__':
-    search_person_cei()
+    person_on_cei()

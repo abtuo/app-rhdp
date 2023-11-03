@@ -1,17 +1,36 @@
 <!-- myapp/templates/all_persons.html -->
 
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>Liste de personnes</title>
+    <style>
+        body {
+            background-color: #f2f2f2;
+        }
+        .button_link {
+            padding: 10px 20px;
+            background-color: #0074D9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Liste de personnes</h1>
     <ul>
         {% for person in persons %}
-        <li>{{ person.first_name }} {{ person.last_name }}</li>
+        <li>{{ person.first_name }} {{ person.last_name }} né le {{person.birth_date}}</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'search_person' %}">Retour à la recherche</a>
+
+    <a href="{% url 'search_person' %}", class="button">
+            <button class="button_link">Retour à la recherche</button>
+    </a>
 </body>
 </html>
