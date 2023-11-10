@@ -30,6 +30,8 @@
         </div>
         <!-- Deuxième colonne -->
         <div class="column">
+            <label for="comite_de_base">Comité de base</label>
+            <input type="text" id="base" name="base" required><br><br>
             <label for="section_de_base">Section</label>
             <input type="text" id="adresse" name="section" required><br><br>
 
@@ -40,8 +42,13 @@
 
             <input type="submit" value="Ajouter">
         </div>
-        
     </form>
+
+    {% if person_on_cei %}
+        <p style="color: green;"> est inscrit(e) sur la liste électorale. <br>
+        </p>
+
+    {% endif %}
     {% if success %}
         <p class="success-message">La personne a été ajoutée avec succès.</p>
     {% endif %}
@@ -53,14 +60,3 @@
         <button class="button_link">Retour à la recherche</button>
     </a>
 {% endblock %}
-
-
-first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    birth_date = models.DateField()
-    birth_place = models.CharField(max_length=100)
-    sexe = models.CharField(max_length=100)
-    contact = models.CharField(max_length=100)
-    section = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)

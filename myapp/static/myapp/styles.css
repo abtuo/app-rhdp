@@ -25,7 +25,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-   height: 100vh; 
+   height: 100vh;
 }
 
 /* Style pour le conteneur */
@@ -87,8 +87,8 @@ form div input[type="tel"] {
 }
 
 .logo {
-    max-width: 100px; /* Largeur maximale du logo */
-    max-height: 100px; /* Hauteur maximale du logo */
+    max-width: 200px; /* Largeur maximale du logo */
+    max-height: 200px; /* Hauteur maximale du logo */
 }
 
 form input[type="submit"] {

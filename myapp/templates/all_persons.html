@@ -5,6 +5,7 @@
 <html>
 <head>
     <title>Liste de personnes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
             background-color: #f2f2f2;
@@ -19,18 +20,44 @@
             cursor: pointer;
             margin: 5px;
         }
+        /* Style pour l'icône "Ok" (vert) */
+        .icon-ok {
+            color: green;
+        }
+
+        /* Style pour l'icône "Pas Ok" (rouge) */
+        .icon-not-ok {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <h1>Liste de personnes</h1>
-    <ul>
-        {% for person in persons %}
-        <li>{{ person.first_name }} {{ person.last_name }} né le {{person.birth_date}}</li>
-        {% endfor %}
-    </ul>
 
+    <table cellspacing="10" > <!-- Utilisez l'attribut border pour ajouter des bordures -->
+        <tr> <!-- Première ligne pour les en-têtes de colonnes -->
+            <th>Nom</th>
+            <th>Date de naissance</th>
+            <th>Votant</th>
+        </tr>
+        {% for person in persons %}
+            <tr> <!-- Deuxième ligne pour les données -->
+                <td>{{ person.first_name }} {{ person.last_name }}</td>
+                <td>{{person.birth_date}}</td>
+                <td>
+                    {% if person.is_on_cei %}
+                    <i class="fas fa-check-circle icon-ok"></i>
+                    {% else %}
+                    <i class="fas fa-times-circle icon-not-ok"></i>
+                    {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <br>
     <a href="{% url 'search_person' %}", class="button">
             <button class="button_link">Retour à la recherche</button>
     </a>
+    
 </body>
 </html>

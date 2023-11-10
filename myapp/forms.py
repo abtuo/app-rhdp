@@ -13,4 +13,5 @@ class PersonForm(forms.ModelForm):
                   'contact', 
                   'section', 
                   'city', 
-                  'country']
+                  'country',
+                  'is_on_cei']

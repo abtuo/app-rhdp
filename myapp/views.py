@@ -104,10 +104,24 @@ def search_result(request):
 def add_person(request):
     if request.method == 'POST':
         form = PersonForm(request.POST)
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        birth_date = request.POST.get('birth_date')
+        year, month, day = birth_date.split('-')
+
+        person_on_cei = search_person_cei(name=first_name,
+                                            surname=last_name,
+                                            day=day,
+                                            month=month,
+                                            year=year
+                                            )
+        if len(person_on_cei) <= 2:
+                person_on_cei = False
+        else:
+            person_on_cei = True
+
         try:
-            # Essayez d'ajouter la personne à la base de données
             form.save()
-            # Réinitialisez le formulaire
             form = PersonForm()
             success = True
             error_message = None
@@ -115,12 +129,14 @@ def add_person(request):
             # Si la personne existe déjà dans la base de données
             success = False
             error_message = "La personne existe déjà dans la base de données."
+    
+        return render(request, 'add_person.html', {'form': form, 'success': success, 'error_message': error_message, 'person_on_cei': person_on_cei})
     else:
         form = PersonForm()
         success = False
         error_message = None
 
-    return render(request, 'add_person.html', {'form': form, 'success': success, 'error_message': error_message})
+        return render(request, 'add_person.html', {'form': form, 'success': success, 'error_message': error_message})
 
 
 def view_all_persons(request):
